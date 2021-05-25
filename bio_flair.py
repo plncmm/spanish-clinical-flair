@@ -76,8 +76,8 @@ if __name__ == '__main__':
         flair.device = torch.device(device)
     else:
         flair.device = torch.device('cpu')
-    create_partitions('data/raw/ex.txt', 20)
-    #create_partitions('data/raw/corpus_not_normalized.txt', 20)
+    #create_partitions('data/raw/ex.txt', 20) # Archivo de ejemplo solamente para mostrar cómo va entrenando.
+    create_partitions('data/raw/corpus_not_normalized.txt', 20)
     run('es-forward', 'resources/taggers/bio_flair_forward')
     run('es-backward', 'resources/taggers/bio_flair_backward')
 
