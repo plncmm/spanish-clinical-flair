@@ -28,10 +28,11 @@ def run(pretrained_model, output_path):
     trainer = LanguageModelTrainer(language_model, corpus)
 
     trainer.train(output_path,
-                sequence_length=100,
+                sequence_length=250,
                 mini_batch_size=100,
                 learning_rate=20,
-                patience=10,
+                patience=25,
+                max_epochs=1000,
                 checkpoint=True)
 
 def create_partitions(filepath, n_train_partitions):
