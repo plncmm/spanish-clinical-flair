@@ -69,16 +69,20 @@ def create_partitions(filepath, n_train_partitions):
 
 
 if __name__ == '__main__':
-    n_train_partitions = 20
-    available_gpu = torch.cuda.is_available()
-    if available_gpu:
-        print(f"GPU is available: {torch.cuda.get_device_name(0)}")
-        flair.device = torch.device(device)
-    else:
-        flair.device = torch.device('cpu')
-    #create_partitions('data/raw/ex.txt', 20) # Archivo de ejemplo solamente para mostrar cómo va entrenando.
-    create_partitions('data/raw/corpus_not_normalized.txt', 20)
-    run('es-forward', 'resources/taggers/bio_flair_forward')
-    run('es-backward', 'resources/taggers/bio_flair_backward')
+    import sys
+    if sys.argv[1] == "partition":
+        #create_partitions('data/raw/ex.txt', 20) # Archivo de ejemplo solamente para mostrar cómo va entrenando.
+        create_partitions('data/raw/corpus_not_normalized.txt', 20)
+    if sys.argv[1] == "train":
+        available_gpu = torch.cuda.is_available()
+        if available_gpu:
+            print(f"GPU is available: {torch.cuda.get_device_name(0)}")
+            flair.device = torch.device('cuda')
+        else:
+            exit()
+        if sys.argv[2] == "forward":
+            run('es-forward', 'resources/taggers/bio_flair_forward')
+        if sys.argv[2] == "backward":
+            run('es-backward', 'resources/taggers/bio_flair_backward')
 
     
